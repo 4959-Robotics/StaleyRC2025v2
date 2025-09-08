@@ -1,5 +1,4 @@
-Staley Robotics - Command Based Architecture Template
+Staley Robotics - 2025 Reefscape Offseason recode
 
 ChangeLog
-- 2024-12-24 - Updated Template for Start of 2025 Season
-- 2024-11-01 - Initial Commit - Created Template for the 2025 Beta Testing
+- 2025-09-08 Created from FRCCommandTemplate
