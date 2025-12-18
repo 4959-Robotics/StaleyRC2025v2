@@ -1,17 +1,25 @@
 from commands2 import Subsystem
 from wpilib import RobotState
 from ntcore import NetworkTable, NetworkTableInstance
+from rev import SparkMax, SparkMaxConfig
 
-class ExampleSubsystem(Subsystem):
+class CoralManipulator(Subsystem):
     # Variable Type Declaration
-    value:float = 0.0
-    system:int = None
     logging:NetworkTable = None
 
-    def __init__(self, sysId:int) -> None:
-        self.system = sysId
-        self.value = 0.0
-        self.logging = NetworkTableInstance.getDefault().getTable("/Logging/ExampleSubsystem")
+    def __init__(self, pivotMotorID:int, coralIOMotorID:int) -> None:
+        ## Logging inits
+        self.logging = NetworkTableInstance.getDefault().getTable("/Logging/CoralManipulator")
+
+        ## Motor Inits
+        # Pivot Motor
+        self.pivotMotor = SparkMax(pivotMotorID, SparkMax.MotorType.kBrushless)
+
+        pivMotorConfig = SparkMaxConfig()
+        pivEncoderConfig = pivMotorConfig.absoluteEncoder.inverted(False)
+        pivEncoderConfig = pivEncoderConfig.zeroOffset(0.0)
+
+        self.coralIOMotor = SparkMax(coralIOMotorID, SparkMax.MotorType.kBrushless)
 
     def periodic(self) -> None:
         # Logging: Write Current Subsystem State
@@ -25,7 +33,6 @@ class ExampleSubsystem(Subsystem):
         
         # Logging: Write Post Operation Information
         self.logging.putNumber( "Setpoint", self.getSetpoint() )
-        self.logging.putNumber( "Measured", self.system )
 
     def run(self) -> None:
         pass

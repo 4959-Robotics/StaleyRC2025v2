@@ -1,7 +1,7 @@
 # Imports
-from .ExampleSubsystem import *
+from .CoralManipulator import *
 
 # Classes to Import
 __all__ = [
-    "ExampleSubsystem"
+    "CoralManipulator"
 ]

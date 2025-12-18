@@ -2,11 +2,11 @@
 from enum import Enum, auto
 
 # FRC Imports
-from wpilib import SendableChooser, SmartDashboard
+from wpilib import SendableChooser, SmartDashboard, Alert
 from commands2 import Command, cmd
 
 # Local Imports
-from subsystems import ExampleSubsystem
+from subsystems import CoralManipulator
 from commands import ExampleCommand
 from util import FalconXboxController
 
@@ -23,18 +23,24 @@ class RobotContainer:
     """
     __autoChooser:SendableChooser = SendableChooser()
 
+    tuning_mode:bool = None
+    __tuningModeAlert:Alert = Alert("Tuning Mode active, expected decreased network performance.", Alert.AlertType.kInfo)
+
     def __init__(self):
         """
         Initializes RobotContainer
         """
         ## Config
-        control_mode = ControlMode.TEST
+        control_mode = ControlMode.TEST # see ControlMode class for options
+        self.tuning_mode = True
+
+        self.__tuningModeAlert.set(self.tuning_mode)
 
         # Driver Controller
         driver1 = FalconXboxController( 0 )
 
         # Declare Subsystems
-        sysSample = ExampleSubsystem( 0 )
+        sysSample = CoralManipulator( 0 )
 
         # Commands
         cmdSampleLeft = ExampleCommand(sysSample, driver1.getLeftX )

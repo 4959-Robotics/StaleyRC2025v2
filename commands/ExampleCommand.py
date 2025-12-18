@@ -1,11 +1,11 @@
 import typing
 
 from commands2 import Command, Subsystem
-from subsystems.ExampleSubsystem import ExampleSubsystem
+from subsystems.CoralManipulator import CoralManipulator
 
 class ExampleCommand(Command):
     # Variable Declaration
-    subsystem:ExampleSubsystem = None
+    subsystem:CoralManipulator = None
     getValue:typing.Callable[[],float] = lambda: 0.0
     
     # Initialization
@@ -14,7 +14,7 @@ class ExampleCommand(Command):
                   myValue: typing.Callable[[], float] = lambda: 0.0
                 ) -> None:
         # Command Attributes
-        self.subsystem:ExampleSubsystem = mySubsystem
+        self.subsystem:CoralManipulator = mySubsystem
         self.getValue = myValue
         self.setName( "ExampleCommand" )
         self.addRequirements( mySubsystem )
